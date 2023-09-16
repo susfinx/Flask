@@ -1,5 +1,5 @@
-from flask import Flask, render_template, request, redirect, url_for, make_response
-
+from flask import Flask, render_template, request, redirect, url_for, make_response, es
+from markupsafe import escape
 app = Flask(__name__)
 
 @app.route('/')
@@ -9,8 +9,8 @@ def index():
 @app.route('/welcome', methods=['POST'])
 def welcome():
     # Получаем данные из формы
-    name = request.form.get('name')
-    email = request.form.get('email')
+    name = request.form.get(escape('name'))
+    email = request.form.get(escape('email'))
 
     # Создаем cookie с данными пользователя
     response = make_response(redirect(url_for('greet')))
